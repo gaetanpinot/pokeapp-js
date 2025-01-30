@@ -1,4 +1,5 @@
 import { createPinia, defineStore } from "pinia";
+import { getPokemon } from "./services/httpClient";
 
 const usePokeStore = defineStore("pokeStore", {
   state: () => ({
@@ -40,6 +41,12 @@ const usePokeStore = defineStore("pokeStore", {
     },
     addPokemon(pokemon) {
       this.pokemonList[pokemon.name] = pokemon;
+    },
+    async fetchPokemon(name) {
+      if (this.pokemonList[name] === undefined) {
+        const pokemon = await getPokemon(name);
+        this.addPokemon(pokemon);
+      }
     },
   },
 });

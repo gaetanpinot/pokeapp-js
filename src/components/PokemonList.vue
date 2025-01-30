@@ -49,6 +49,13 @@ export default {
       this.error = e.message;
     }
   },
+  mounted() {
+    //console.log(this.filtreType)
+  },
+  updated() {
+    //console.log(this.filtreType)
+  },
+
 
   /** 
 ce qui déclenche le changement de la liste: 
@@ -80,7 +87,7 @@ donné actuellement appliqué vs données input
       } else if (this.filtreType.length === 0) {
         this.typeFilteredPokemonList = this.pokemonNameList
       }
-      console.log(this.rechercheActuel + "-" + this.typeFilteredPokemonList)
+      //console.log(this.rechercheActuel + "-" + this.typeFilteredPokemonList)
       this.rechercher(this.rechercheActuel, this.typeFilteredPokemonList)
 
       this.chargePage(page !== null ? page : this.inputPage)
@@ -121,14 +128,9 @@ donné actuellement appliqué vs données input
     chargePokemonDetail() {
       for (const name of this.result) {
         if (this.pokemonList[name] === undefined)
-          this.chargePokemonIndividuelDetail(name)
+          this.fetchPokemon(name)
       }
       //console.log(this.pokemonList)
-    },
-
-    async chargePokemonIndividuelDetail(name) {
-      const pokemon = await getPokemon(name)
-      this.addPokemon(pokemon)
     },
 
     ...mapActions(usePokeStore, ['addPokemon']),
@@ -136,6 +138,7 @@ donné actuellement appliqué vs données input
     ...mapActions(usePokeStore, ['sliceNamePokemon']),
     ...mapActions(usePokeStore, ['rechercher']),
     ...mapActions(usePokeStore, ['fillTypeList']),
+    ...mapActions(usePokeStore, ['fetchPokemon']),
 
   },
   computed: {
@@ -174,11 +177,7 @@ donné actuellement appliqué vs données input
     nbPageTotal() {
       return Math.ceil(this.availablePokemonName.length / this.shownPokemon)
     },
-    updateTypeList(type) {
-      if (!this.filtreType.contains(type)) {
-        this.filtreType.push(type)
-      }
-    },
+
   },
 
   watch: {
@@ -219,11 +218,8 @@ donné actuellement appliqué vs données input
         <button @click="updatePages()">Rechercher</button>
       </div>
       <div id="list">
-        <span v-for="namePoke in result" v-if="result.length > 0" class="elementPokemon">
-          <router-link :to="{ name: 'pokemon', params: { name: namePoke } }" class="nomPokemon">
-            <PokemonDetailList :name="namePoke"></PokemonDetailList>
-          </router-link>
-        </span>
+        <PokemonDetailList v-for="namePoke in result" v-if="result.length > 0" :name="namePoke" class="elementPokemon">
+        </PokemonDetailList>
         <span v-else>
           <p>Aucun pokemon trouvé</p>
         </span>
@@ -302,12 +298,16 @@ nav {
 }
 
 .elementPokemon {
+  margin: 0.25em 0.5em 0.25em 0.5em;
   box-sizing: border-box;
   width: 9em;
   height: fit-content;
-  margin: 0;
   display: grid;
   grid-template-columns: 1fr;
+
+  .nomPokemon {
+    width: inherit;
+  }
 
 }
 </style>

@@ -4,10 +4,6 @@ import { usePokeStore } from "@/store.js";
 import { mapState } from "pinia";
 
 export default {
-  setup() {
-    const store = usePokeStore()
-    return { store }
-  },
   name: "Pokemon",
   props: {
     name: ""
@@ -32,7 +28,7 @@ export default {
       if (this.pokemon === undefined) {
         try {
           this.pokemon = await getPokemon(this.name)
-          console.log(this.store.status)
+          //console.log(this.store.status)
         } catch (e) {
           this.error = e.message
         }
