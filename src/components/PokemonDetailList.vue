@@ -31,17 +31,30 @@ export default {
         <img :src="pokemon.sprites.front_default" :alt="pokemon.name + ' Image'">
       </div>
     </router-link>
-    <button v-if="panier[name] === undefined" @click="addPokemonToPanier(name)">Ajouter au panier</button>
-    <div v-else>
-      <button @click="removePokemonFromPanier(name)">-</button>
-      <span>{{ panier[name] }}</span>
-      <button @click="addPokemonToPanier(name)">+</button>
+    <div class="btnsPanier">
+      <button v-if="panier[name] === undefined" @click="addPokemonToPanier(name)">Ajouter au panier</button>
+      <div v-else>
+        <button @click="removePokemonFromPanier(name)">-</button>
+        <span>{{ panier[name] }}</span>
+        <button @click="addPokemonToPanier(name)">+</button>
+      </div>
     </div>
 
   </div>
 </template>
 
 <style scoped>
+.nomPokemon {
+  width: inherit;
+}
+
+.btnsPanier {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: inherit;
+}
+
 .nameCartePokemon {
   white-space: nowrap;
   overflow: hidden;

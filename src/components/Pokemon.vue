@@ -46,11 +46,9 @@ export default {
   <div v-if="pokemon" id="pokemon-detail">
     <h2>{{ pokemon.name }}</h2>
     <img :alt="pokemon.name + ' Image'" :src="pokemon.sprites.front_default">
-    <p>Prix: {{ pokemon.base_experience }}</p>
-    <p v-for="stat in pokemon.stats">
-      {{ stat.stat.name }}: {{ stat.base_stat }}
-    </p>
+    <p>Prix: {{ pokemon.base_experience }}€</p>
     <p>Poids: {{ pokemon.weight }}</p>
+    <p>Type: <span class="typePkmn" v-for="type in pokemon.types"> {{ type.type.name.toUpperCase() + " " }} </span> </p>
 
     <!--    <audio controls>-->
     <!--      <source :src="pokemon.cries.legacy">-->
@@ -60,9 +58,17 @@ export default {
     <!--      <source :src="pokemon.cries.legacy">-->
     <!--      Pas d'audio-->
     <!--    </audio>-->
-
+    <div id="statPkmn">
+      <p v-for="stat in pokemon.stats">
+        {{ stat.stat.name }}: {{ stat.base_stat }}
+      </p>
+    </div>
   </div>
   <span>{{ error }}</span>
 </template>
 
-<style scoped></style>
+<style scoped>
+.typePkmn {
+  font-weight: bold;
+}
+</style>
