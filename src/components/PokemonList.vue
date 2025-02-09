@@ -215,7 +215,7 @@ donné actuellement appliqué vs données input
       <div id="recherche">
         <label for="barreRecherche">Recherche pokemon</label>
         <input id="barreRecherche" v-model="recherche" placeholder="Recherche" type="text" @change="updatePages()">
-        <button @click="updatePages()">Rechercher</button>
+        <button @click="updatePages()">Rechercher/Appliquer les filtres</button>
       </div>
       <div id="list">
         <PokemonDetailList v-for="namePoke in result" v-if="result.length > 0" :name="namePoke" class="elementPokemon">
@@ -256,6 +256,7 @@ $maxwidth: 49.9em;
     flex-direction: row;
     align-items: center;
     margin-bottom: 0.3em;
+    text-transform: capitalize;
 
     input {
       margin-right: 0.4em;

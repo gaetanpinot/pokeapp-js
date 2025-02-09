@@ -11,11 +11,24 @@ export default {
   <div id="app-pokemon">
     <header>
       <h1>PokeApp</h1>
-      <RouterLink to="/">Liste des pokémons</RouterLink>
-      <PanierStatus></PanierStatus>
+      <RouterLink class="lien" to="/">Liste des pokémons</RouterLink>
+      <PanierStatus class="lien"></PanierStatus>
     </header>
     <RouterView></RouterView>
   </div>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+#app-pokemon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  header {
+    .lien {
+      font-size: 1.5em;
+      margin-right: 1em;
+    }
+  }
+}
+</style>

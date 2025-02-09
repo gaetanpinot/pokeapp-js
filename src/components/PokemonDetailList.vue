@@ -25,12 +25,13 @@ export default {
 <template>
   <div class="miniCartePokemon">
     <router-link :to="{ name: 'pokemon', params: { name: this.name } }" class="nomPokemon">
-      <p class="nameCartePokemon">{{ name }}</p>
+      <div class="nameCartePokemon">{{ name }}</div>
       <div v-if="pokemon" class="detailPokemon">
         <p>Prix: {{ pokemon.base_experience }}</p>
         <img :src="pokemon.sprites.front_default" :alt="pokemon.name + ' Image'">
       </div>
     </router-link>
+
     <div class="btnsPanier">
       <button v-if="panier[name] === undefined" @click="addPokemonToPanier(name)">Ajouter au panier</button>
       <div v-else>
@@ -43,9 +44,10 @@ export default {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .nomPokemon {
   width: inherit;
+  text-transform: capitalize;
 }
 
 .btnsPanier {
@@ -53,6 +55,18 @@ export default {
   flex-direction: row;
   justify-content: space-around;
   width: inherit;
+
+  button {
+
+    background-color: white;
+    border-radius: 0.4em;
+    margin: 0.2em;
+    border: 1px solid dimgray;
+
+    &:active {
+      transform: translate(4px, 4px);
+    }
+  }
 }
 
 .nameCartePokemon {
@@ -63,8 +77,11 @@ export default {
 }
 
 .miniCartePokemon {
-  border: 1px solid black;
-  border-radius: 0.3em;
+  // border: 1px solid black;
+  // border-radius: 0.3em;
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   align-items: center;
